@@ -1,11 +1,11 @@
--- ==================== AUTO JJs BR - GUI BONITA + ATÉ 100 + PULO FIXADO ====================
--- Atualizado: Limite 100 | Números por extenso completos
+-- ==================== AUTO JJs BR - GUI BONITA + ATÉ 200 + PULO FIXADO ====================
+-- Atualizado: Limite 200 | Números por extenso completos 1-200
 
 local Players = game:GetService("Players")
 local TextChatService = game:GetService("TextChatService")
 local player = Players.LocalPlayer
 
--- Lista completa até 100 (com !)
+-- Lista completa até 200 (com !)
 local words = {
     [1] = "UM!", [2] = "DOIS!", [3] = "TRÊS!", [4] = "QUATRO!", [5] = "CINCO!",
     [6] = "SEIS!", [7] = "SETE!", [8] = "OITO!", [9] = "NOVE!", [10] = "DEZ!",
@@ -26,7 +26,27 @@ local words = {
     [81] = "OITENTA E UM!", [82] = "OITENTA E DOIS!", [83] = "OITENTA E TRÊS!", [84] = "OITENTA E QUATRO!", [85] = "OITENTA E CINCO!",
     [86] = "OITENTA E SEIS!", [87] = "OITENTA E SETE!", [88] = "OITENTA E OITO!", [89] = "OITENTA E NOVE!", [90] = "NOVENTA!",
     [91] = "NOVENTA E UM!", [92] = "NOVENTA E DOIS!", [93] = "NOVENTA E TRÊS!", [94] = "NOVENTA E QUATRO!", [95] = "NOVENTA E CINCO!",
-    [96] = "NOVENTA E SEIS!", [97] = "NOVENTA E SETE!", [98] = "NOVENTA E OITO!", [99] = "NOVENTA E NOVE!", [100] = "CEM!"
+    [96] = "NOVENTA E SEIS!", [97] = "NOVENTA E SETE!", [98] = "NOVENTA E OITO!", [99] = "NOVENTA E NOVE!", [100] = "CEM!",
+    [101] = "CENTO E UM!", [102] = "CENTO E DOIS!", [103] = "CENTO E TRÊS!", [104] = "CENTO E QUATRO!", [105] = "CENTO E CINCO!",
+    [106] = "CENTO E SEIS!", [107] = "CENTO E SETE!", [108] = "CENTO E OITO!", [109] = "CENTO E NOVE!", [110] = "CENTO E DEZ!",
+    [111] = "CENTO E ONZE!", [112] = "CENTO E DOZE!", [113] = "CENTO E TREZE!", [114] = "CENTO E QUATORZE!", [115] = "CENTO E QUINZE!",
+    [116] = "CENTO E DEZESSEIS!", [117] = "CENTO E DEZESSETE!", [118] = "CENTO E DEZOITO!", [119] = "CENTO E DEZENOVE!", [120] = "CENTO E VINTE!",
+    [121] = "CENTO E VINTE E UM!", [122] = "CENTO E VINTE E DOIS!", [123] = "CENTO E VINTE E TRÊS!", [124] = "CENTO E VINTE E QUATRO!", [125] = "CENTO E VINTE E CINCO!",
+    [126] = "CENTO E VINTE E SEIS!", [127] = "CENTO E VINTE E SETE!", [128] = "CENTO E VINTE E OITO!", [129] = "CENTO E VINTE E NOVE!", [130] = "CENTO E TRINTA!",
+    [131] = "CENTO E TRINTA E UM!", [132] = "CENTO E TRINTA E DOIS!", [133] = "CENTO E TRINTA E TRÊS!", [134] = "CENTO E TRINTA E QUATRO!", [135] = "CENTO E TRINTA E CINCO!",
+    [136] = "CENTO E TRINTA E SEIS!", [137] = "CENTO E TRINTA E SETE!", [138] = "CENTO E TRINTA E OITO!", [139] = "CENTO E TRINTA E NOVE!", [140] = "CENTO E QUARENTA!",
+    [141] = "CENTO E QUARENTA E UM!", [142] = "CENTO E QUARENTA E DOIS!", [143] = "CENTO E QUARENTA E TRÊS!", [144] = "CENTO E QUARENTA E QUATRO!", [145] = "CENTO E QUARENTA E CINCO!",
+    [146] = "CENTO E QUARENTA E SEIS!", [147] = "CENTO E QUARENTA E SETE!", [148] = "CENTO E QUARENTA E OITO!", [149] = "CENTO E QUARENTA E NOVE!", [150] = "CENTO E CINQUENTA!",
+    [151] = "CENTO E CINQUENTA E UM!", [152] = "CENTO E CINQUENTA E DOIS!", [153] = "CENTO E CINQUENTA E TRÊS!", [154] = "CENTO E CINQUENTA E QUATRO!", [155] = "CENTO E CINQUENTA E CINCO!",
+    [156] = "CENTO E CINQUENTA E SEIS!", [157] = "CENTO E CINQUENTA E SETE!", [158] = "CENTO E CINQUENTA E OITO!", [159] = "CENTO E CINQUENTA E NOVE!", [160] = "CENTO E SESSENTA!",
+    [161] = "CENTO E SESSENTA E UM!", [162] = "CENTO E SESSENTA E DOIS!", [163] = "CENTO E SESSENTA E TRÊS!", [164] = "CENTO E SESSENTA E QUATRO!", [165] = "CENTO E SESSENTA E CINCO!",
+    [166] = "CENTO E SESSENTA E SEIS!", [167] = "CENTO E SESSENTA E SETE!", [168] = "CENTO E SESSENTA E OITO!", [169] = "CENTO E SESSENTA E NOVE!", [170] = "CENTO E SETENTA!",
+    [171] = "CENTO E SETENTA E UM!", [172] = "CENTO E SETENTA E DOIS!", [173] = "CENTO E SETENTA E TRÊS!", [174] = "CENTO E SETENTA E QUATRO!", [175] = "CENTO E SETENTA E CINCO!",
+    [176] = "CENTO E SETENTA E SEIS!", [177] = "CENTO E SETENTA E SETE!", [178] = "CENTO E SETENTA E OITO!", [179] = "CENTO E SETENTA E NOVE!", [180] = "CENTO E OITENTA!",
+    [181] = "CENTO E OITENTA E UM!", [182] = "CENTO E OITENTA E DOIS!", [183] = "CENTO E OITENTA E TRÊS!", [184] = "CENTO E OITENTA E QUATRO!", [185] = "CENTO E OITENTA E CINCO!",
+    [186] = "CENTO E OITENTA E SEIS!", [187] = "CENTO E OITENTA E SETE!", [188] = "CENTO E OITENTA E OITO!", [189] = "CENTO E OITENTA E NOVE!", [190] = "CENTO E NOVENTA!",
+    [191] = "CENTO E NOVENTA E UM!", [192] = "CENTO E NOVENTA E DOIS!", [193] = "CENTO E NOVENTA E TRÊS!", [194] = "CENTO E NOVENTA E QUATRO!", [195] = "CENTO E NOVENTA E CINCO!",
+    [196] = "CENTO E NOVENTA E SEIS!", [197] = "CENTO E NOVENTA E SETE!", [198] = "CENTO E NOVENTA E OITO!", [199] = "CENTO E NOVENTA E NOVE!", [200] = "DUZENTOS!"
 }
 
 -- Variáveis
@@ -41,7 +61,7 @@ if TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then
     generalChannel = TextChatService:WaitForChild("TextChannels"):WaitForChild("RBXGeneral", 5)
 end
 
--- ====================== GUI (mesma bonita) ======================
+-- ====================== GUI ======================
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "AutoJJsBR_Bonita"
 screenGui.ResetOnSpawn = false
@@ -89,7 +109,7 @@ local subtitle = Instance.new("TextLabel")
 subtitle.Size = UDim2.new(1, 0, 0, 20)
 subtitle.Position = UDim2.new(0, 0, 0, 45)
 subtitle.BackgroundTransparency = 1
-subtitle.Text = "Contagem Militar Automática (até 100)"
+subtitle.Text = "Contagem Militar Automática (até 200)"
 subtitle.TextColor3 = Color3.fromRGB(150, 255, 150)
 subtitle.TextScaled = true
 subtitle.Font = Enum.Font.Gotham
@@ -143,7 +163,7 @@ local function createBox(default, posY)
     return box
 end
 
-createLabel("Até qual número? (máx 100)", 80)
+createLabel("Até qual número? (máx 200)", 80)
 local boxMax = createBox("20", 105)
 
 createLabel("Velocidade (segundos)", 150)
@@ -218,15 +238,15 @@ local function startCounting()
     delayTime = tonumber(boxSpeed.Text) or 1.8
     
     if maxNumber < 1 then maxNumber = 1 end
-    if maxNumber > 100 then 
-        maxNumber = 100 
-        status.Text = "Limite ajustado para 100!"
+    if maxNumber > 200 then 
+        maxNumber = 200 
+        status.Text = "Limite ajustado para 200!"
     end
     
-    if maxNumber >= 50 then
-        status.Text = "Cuidado! Contagem alta ("..maxNumber..") pode causar kick por flood. Use delay 2.0+"
+    if maxNumber >= 100 then
+        status.Text = "CUIDADO! Contagem alta ("..maxNumber..") → Use delay 3.0+ pra evitar kick por flood"
         status.TextColor3 = Color3.fromRGB(255, 150, 50)
-        task.wait(3)  -- Mostra aviso por 3s
+        task.wait(4)  -- Mostra aviso por 4s
     end
     
     running = true
@@ -246,9 +266,9 @@ local function startCounting()
                 if humanoid then
                     if humanoid:GetState() ~= Enum.HumanoidStateType.Jumping and humanoid.FloorMaterial ~= Enum.Material.Air then
                         humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-                        print("Pulo forçado no número " .. i)
+                        print("Pulo no " .. i)
                     else
-                        print("Pulo ignorado (já no ar) no " .. i)
+                        print("Pulo skip (no ar) " .. i)
                     end
                 end
             end
@@ -269,4 +289,4 @@ stopBtn.MouseButton1Click:Connect(function()
     status.TextColor3 = Color3.fromRGB(255, 100, 100)
 end)
 
-print("Auto JJs BR atualizado - Agora até 100! Teste com delay alto pra contagens grandes.")
+print("Auto JJs BR - Atualizado até 200! Delay alto recomendado pra contagens grandes.")
