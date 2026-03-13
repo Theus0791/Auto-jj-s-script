@@ -1,57 +1,59 @@
--- ==================== AUTO JJs BR - GUI BONITA + ATÉ 200 + PULO FIXADO ====================
--- Atualizado: Limite 200 | Números por extenso completos 1-200
+-- ==================== AUTO JJs BR - GUI BONITA + RANGE PERSONALIZADO (de X até Y) ====================
 
 local Players = game:GetService("Players")
 local TextChatService = game:GetService("TextChatService")
 local player = Players.LocalPlayer
 
--- Lista completa até 200 (com !)
-local words = {
-    [1] = "UM!", [2] = "DOIS!", [3] = "TRÊS!", [4] = "QUATRO!", [5] = "CINCO!",
-    [6] = "SEIS!", [7] = "SETE!", [8] = "OITO!", [9] = "NOVE!", [10] = "DEZ!",
-    [11] = "ONZE!", [12] = "DOZE!", [13] = "TREZE!", [14] = "QUATORZE!", [15] = "QUINZE!",
-    [16] = "DEZESSEIS!", [17] = "DEZESSETE!", [18] = "DEZOITO!", [19] = "DEZENOVE!", [20] = "VINTE!",
-    [21] = "VINTE E UM!", [22] = "VINTE E DOIS!", [23] = "VINTE E TRÊS!", [24] = "VINTE E QUATRO!", [25] = "VINTE E CINCO!",
-    [26] = "VINTE E SEIS!", [27] = "VINTE E SETE!", [28] = "VINTE E OITO!", [29] = "VINTE E NOVE!", [30] = "TRINTA!",
-    [31] = "TRINTA E UM!", [32] = "TRINTA E DOIS!", [33] = "TRINTA E TRÊS!", [34] = "TRINTA E QUATRO!", [35] = "TRINTA E CINCO!",
-    [36] = "TRINTA E SEIS!", [37] = "TRINTA E SETE!", [38] = "TRINTA E OITO!", [39] = "TRINTA E NOVE!", [40] = "QUARENTA!",
-    [41] = "QUARENTA E UM!", [42] = "QUARENTA E DOIS!", [43] = "QUARENTA E TRÊS!", [44] = "QUARENTA E QUATRO!", [45] = "QUARENTA E CINCO!",
-    [46] = "QUARENTA E SEIS!", [47] = "QUARENTA E SETE!", [48] = "QUARENTA E OITO!", [49] = "QUARENTA E NOVE!", [50] = "CINQUENTA!",
-    [51] = "CINQUENTA E UM!", [52] = "CINQUENTA E DOIS!", [53] = "CINQUENTA E TRÊS!", [54] = "CINQUENTA E QUATRO!", [55] = "CINQUENTA E CINCO!",
-    [56] = "CINQUENTA E SEIS!", [57] = "CINQUENTA E SETE!", [58] = "CINQUENTA E OITO!", [59] = "CINQUENTA E NOVE!", [60] = "SESSENTA!",
-    [61] = "SESSENTA E UM!", [62] = "SESSENTA E DOIS!", [63] = "SESSENTA E TRÊS!", [64] = "SESSENTA E QUATRO!", [65] = "SESSENTA E CINCO!",
-    [66] = "SESSENTA E SEIS!", [67] = "SESSENTA E SETE!", [68] = "SESSENTA E OITO!", [69] = "SESSENTA E NOVE!", [70] = "SETENTA!",
-    [71] = "SETENTA E UM!", [72] = "SETENTA E DOIS!", [73] = "SETENTA E TRÊS!", [74] = "SETENTA E QUATRO!", [75] = "SETENTA E CINCO!",
-    [76] = "SETENTA E SEIS!", [77] = "SETENTA E SETE!", [78] = "SETENTA E OITO!", [79] = "SETENTA E NOVE!", [80] = "OITENTA!",
-    [81] = "OITENTA E UM!", [82] = "OITENTA E DOIS!", [83] = "OITENTA E TRÊS!", [84] = "OITENTA E QUATRO!", [85] = "OITENTA E CINCO!",
-    [86] = "OITENTA E SEIS!", [87] = "OITENTA E SETE!", [88] = "OITENTA E OITO!", [89] = "OITENTA E NOVE!", [90] = "NOVENTA!",
-    [91] = "NOVENTA E UM!", [92] = "NOVENTA E DOIS!", [93] = "NOVENTA E TRÊS!", [94] = "NOVENTA E QUATRO!", [95] = "NOVENTA E CINCO!",
-    [96] = "NOVENTA E SEIS!", [97] = "NOVENTA E SETE!", [98] = "NOVENTA E OITO!", [99] = "NOVENTA E NOVE!", [100] = "CEM!",
-    [101] = "CENTO E UM!", [102] = "CENTO E DOIS!", [103] = "CENTO E TRÊS!", [104] = "CENTO E QUATRO!", [105] = "CENTO E CINCO!",
-    [106] = "CENTO E SEIS!", [107] = "CENTO E SETE!", [108] = "CENTO E OITO!", [109] = "CENTO E NOVE!", [110] = "CENTO E DEZ!",
-    [111] = "CENTO E ONZE!", [112] = "CENTO E DOZE!", [113] = "CENTO E TREZE!", [114] = "CENTO E QUATORZE!", [115] = "CENTO E QUINZE!",
-    [116] = "CENTO E DEZESSEIS!", [117] = "CENTO E DEZESSETE!", [118] = "CENTO E DEZOITO!", [119] = "CENTO E DEZENOVE!", [120] = "CENTO E VINTE!",
-    [121] = "CENTO E VINTE E UM!", [122] = "CENTO E VINTE E DOIS!", [123] = "CENTO E VINTE E TRÊS!", [124] = "CENTO E VINTE E QUATRO!", [125] = "CENTO E VINTE E CINCO!",
-    [126] = "CENTO E VINTE E SEIS!", [127] = "CENTO E VINTE E SETE!", [128] = "CENTO E VINTE E OITO!", [129] = "CENTO E VINTE E NOVE!", [130] = "CENTO E TRINTA!",
-    [131] = "CENTO E TRINTA E UM!", [132] = "CENTO E TRINTA E DOIS!", [133] = "CENTO E TRINTA E TRÊS!", [134] = "CENTO E TRINTA E QUATRO!", [135] = "CENTO E TRINTA E CINCO!",
-    [136] = "CENTO E TRINTA E SEIS!", [137] = "CENTO E TRINTA E SETE!", [138] = "CENTO E TRINTA E OITO!", [139] = "CENTO E TRINTA E NOVE!", [140] = "CENTO E QUARENTA!",
-    [141] = "CENTO E QUARENTA E UM!", [142] = "CENTO E QUARENTA E DOIS!", [143] = "CENTO E QUARENTA E TRÊS!", [144] = "CENTO E QUARENTA E QUATRO!", [145] = "CENTO E QUARENTA E CINCO!",
-    [146] = "CENTO E QUARENTA E SEIS!", [147] = "CENTO E QUARENTA E SETE!", [148] = "CENTO E QUARENTA E OITO!", [149] = "CENTO E QUARENTA E NOVE!", [150] = "CENTO E CINQUENTA!",
-    [151] = "CENTO E CINQUENTA E UM!", [152] = "CENTO E CINQUENTA E DOIS!", [153] = "CENTO E CINQUENTA E TRÊS!", [154] = "CENTO E CINQUENTA E QUATRO!", [155] = "CENTO E CINQUENTA E CINCO!",
-    [156] = "CENTO E CINQUENTA E SEIS!", [157] = "CENTO E CINQUENTA E SETE!", [158] = "CENTO E CINQUENTA E OITO!", [159] = "CENTO E CINQUENTA E NOVE!", [160] = "CENTO E SESSENTA!",
-    [161] = "CENTO E SESSENTA E UM!", [162] = "CENTO E SESSENTA E DOIS!", [163] = "CENTO E SESSENTA E TRÊS!", [164] = "CENTO E SESSENTA E QUATRO!", [165] = "CENTO E SESSENTA E CINCO!",
-    [166] = "CENTO E SESSENTA E SEIS!", [167] = "CENTO E SESSENTA E SETE!", [168] = "CENTO E SESSENTA E OITO!", [169] = "CENTO E SESSENTA E NOVE!", [170] = "CENTO E SETENTA!",
-    [171] = "CENTO E SETENTA E UM!", [172] = "CENTO E SETENTA E DOIS!", [173] = "CENTO E SETENTA E TRÊS!", [174] = "CENTO E SETENTA E QUATRO!", [175] = "CENTO E SETENTA E CINCO!",
-    [176] = "CENTO E SETENTA E SEIS!", [177] = "CENTO E SETENTA E SETE!", [178] = "CENTO E SETENTA E OITO!", [179] = "CENTO E SETENTA E NOVE!", [180] = "CENTO E OITENTA!",
-    [181] = "CENTO E OITENTA E UM!", [182] = "CENTO E OITENTA E DOIS!", [183] = "CENTO E OITENTA E TRÊS!", [184] = "CENTO E OITENTA E QUATRO!", [185] = "CENTO E OITENTA E CINCO!",
-    [186] = "CENTO E OITENTA E SEIS!", [187] = "CENTO E OITENTA E SETE!", [188] = "CENTO E OITENTA E OITO!", [189] = "CENTO E OITENTA E NOVE!", [190] = "CENTO E NOVENTA!",
-    [191] = "CENTO E NOVENTA E UM!", [192] = "CENTO E NOVENTA E DOIS!", [193] = "CENTO E NOVENTA E TRÊS!", [194] = "CENTO E NOVENTA E QUATRO!", [195] = "CENTO E NOVENTA E CINCO!",
-    [196] = "CENTO E NOVENTA E SEIS!", [197] = "CENTO E NOVENTA E SETE!", [198] = "CENTO E NOVENTA E OITO!", [199] = "CENTO E NOVENTA E NOVE!", [200] = "DUZENTOS!"
+-- Lista base (sem sufixo) até 200
+local baseWords = {
+    [1] = "UM", [2] = "DOIS", [3] = "TRÊS", [4] = "QUATRO", [5] = "CINCO",
+    [6] = "SEIS", [7] = "SETE", [8] = "OITO", [9] = "NOVE", [10] = "DEZ",
+    [11] = "ONZE", [12] = "DOZE", [13] = "TREZE", [14] = "QUATORZE", [15] = "QUINZE",
+    [16] = "DEZESSEIS", [17] = "DEZESSETE", [18] = "DEZOITO", [19] = "DEZENOVE", [20] = "VINTE",
+    [21] = "VINTE E UM", [22] = "VINTE E DOIS", [23] = "VINTE E TRÊS", [24] = "VINTE E QUATRO", [25] = "VINTE E CINCO",
+    [26] = "VINTE E SEIS", [27] = "VINTE E SETE", [28] = "VINTE E OITO", [29] = "VINTE E NOVE", [30] = "TRINTA",
+    [31] = "TRINTA E UM", [32] = "TRINTA E DOIS", [33] = "TRINTA E TRÊS", [34] = "TRINTA E QUATRO", [35] = "TRINTA E CINCO",
+    [36] = "TRINTA E SEIS", [37] = "TRINTA E SETE", [38] = "TRINTA E OITO", [39] = "TRINTA E NOVE", [40] = "QUARENTA",
+    [41] = "QUARENTA E UM", [42] = "QUARENTA E DOIS", [43] = "QUARENTA E TRÊS", [44] = "QUARENTA E QUATRO", [45] = "QUARENTA E CINCO",
+    [46] = "QUARENTA E SEIS", [47] = "QUARENTA E SETE", [48] = "QUARENTA E OITO", [49] = "QUARENTA E NOVE", [50] = "CINQUENTA",
+    [51] = "CINQUENTA E UM", [52] = "CINQUENTA E DOIS", [53] = "CINQUENTA E TRÊS", [54] = "CINQUENTA E QUATRO", [55] = "CINQUENTA E CINCO",
+    [56] = "CINQUENTA E SEIS", [57] = "CINQUENTA E SETE", [58] = "CINQUENTA E OITO", [59] = "CINQUENTA E NOVE", [60] = "SESSENTA",
+    [61] = "SESSENTA E UM", [62] = "SESSENTA E DOIS", [63] = "SESSENTA E TRÊS", [64] = "SESSENTA E QUATRO", [65] = "SESSENTA E CINCO",
+    [66] = "SESSENTA E SEIS", [67] = "SESSENTA E SETE", [68] = "SESSENTA E OITO", [69] = "SESSENTA E NOVE", [70] = "SETENTA",
+    [71] = "SETENTA E UM", [72] = "SETENTA E DOIS", [73] = "SETENTA E TRÊS", [74] = "SETENTA E QUATRO", [75] = "SETENTA E CINCO",
+    [76] = "SETENTA E SEIS", [77] = "SETENTA E SETE", [78] = "SETENTA E OITO", [79] = "SETENTA E NOVE", [80] = "OITENTA",
+    [81] = "OITENTA E UM", [82] = "OITENTA E DOIS", [83] = "OITENTA E TRÊS", [84] = "OITENTA E QUATRO", [85] = "OITENTA E CINCO",
+    [86] = "OITENTA E SEIS", [87] = "OITENTA E SETE", [88] = "OITENTA E OITO", [89] = "OITENTA E NOVE", [90] = "NOVENTA",
+    [91] = "NOVENTA E UM", [92] = "NOVENTA E DOIS", [93] = "NOVENTA E TRÊS", [94] = "NOVENTA E QUATRO", [95] = "NOVENTA E CINCO",
+    [96] = "NOVENTA E SEIS", [97] = "NOVENTA E SETE", [98] = "NOVENTA E OITO", [99] = "NOVENTA E NOVE", [100] = "CEM",
+    [101] = "CENTO E UM", [102] = "CENTO E DOIS", [103] = "CENTO E TRÊS", [104] = "CENTO E QUATRO", [105] = "CENTO E CINCO",
+    [106] = "CENTO E SEIS", [107] = "CENTO E SETE", [108] = "CENTO E OITO", [109] = "CENTO E NOVE", [110] = "CENTO E DEZ",
+    [111] = "CENTO E ONZE", [112] = "CENTO E DOZE", [113] = "CENTO E TREZE", [114] = "CENTO E QUATORZE", [115] = "CENTO E QUINZE",
+    [116] = "CENTO E DEZESSEIS", [117] = "CENTO E DEZESSETE", [118] = "CENTO E DEZOITO", [119] = "CENTO E DEZENOVE", [120] = "CENTO E VINTE",
+    [121] = "CENTO E VINTE E UM", [122] = "CENTO E VINTE E DOIS", [123] = "CENTO E VINTE E TRÊS", [124] = "CENTO E VINTE E QUATRO", [125] = "CENTO E VINTE E CINCO",
+    [126] = "CENTO E VINTE E SEIS", [127] = "CENTO E VINTE E SETE", [128] = "CENTO E VINTE E OITO", [129] = "CENTO E VINTE E NOVE", [130] = "CENTO E TRINTA",
+    [131] = "CENTO E TRINTA E UM", [132] = "CENTO E TRINTA E DOIS", [133] = "CENTO E TRINTA E TRÊS", [134] = "CENTO E TRINTA E QUATRO", [135] = "CENTO E TRINTA E CINCO",
+    [136] = "CENTO E TRINTA E SEIS", [137] = "CENTO E TRINTA E SETE", [138] = "CENTO E TRINTA E OITO", [139] = "CENTO E TRINTA E NOVE", [140] = "CENTO E QUARENTA",
+    [141] = "CENTO E QUARENTA E UM", [142] = "CENTO E QUARENTA E DOIS", [143] = "CENTO E QUARENTA E TRÊS", [144] = "CENTO E QUARENTA E QUATRO", [145] = "CENTO E QUARENTA E CINCO",
+    [146] = "CENTO E QUARENTA E SEIS", [147] = "CENTO E QUARENTA E SETE", [148] = "CENTO E QUARENTA E OITO", [149] = "CENTO E QUARENTA E NOVE", [150] = "CENTO E CINQUENTA",
+    [151] = "CENTO E CINQUENTA E UM", [152] = "CENTO E CINQUENTA E DOIS", [153] = "CENTO E CINQUENTA E TRÊS", [154] = "CENTO E CINQUENTA E QUATRO", [155] = "CENTO E CINQUENTA E CINCO",
+    [156] = "CENTO E CINQUENTA E SEIS", [157] = "CENTO E CINQUENTA E SETE", [158] = "CENTO E CINQUENTA E OITO", [159] = "CENTO E CINQUENTA E NOVE", [160] = "CENTO E SESSENTA",
+    [161] = "CENTO E SESSENTA E UM", [162] = "CENTO E SESSENTA E DOIS", [163] = "CENTO E SESSENTA E TRÊS", [164] = "CENTO E SESSENTA E QUATRO", [165] = "CENTO E SESSENTA E CINCO",
+    [166] = "CENTO E SESSENTA E SEIS", [167] = "CENTO E SESSENTA E SETE", [168] = "CENTO E SESSENTA E OITO", [169] = "CENTO E SESSENTA E NOVE", [170] = "CENTO E SETENTA",
+    [171] = "CENTO E SETENTA E UM", [172] = "CENTO E SETENTA E DOIS", [173] = "CENTO E SETENTA E TRÊS", [174] = "CENTO E SETENTA E QUATRO", [175] = "CENTO E SETENTA E CINCO",
+    [176] = "CENTO E SETENTA E SEIS", [177] = "CENTO E SETENTA E SETE", [178] = "CENTO E SETENTA E OITO", [179] = "CENTO E SETENTA E NOVE", [180] = "CENTO E OITENTA",
+    [181] = "CENTO E OITENTA E UM", [182] = "CENTO E OITENTA E DOIS", [183] = "CENTO E OITENTA E TRÊS", [184] = "CENTO E OITENTA E QUATRO", [185] = "CENTO E OITENTA E CINCO",
+    [186] = "CENTO E OITENTA E SEIS", [187] = "CENTO E OITENTA E SETE", [188] = "CENTO E OITENTA E OITO", [189] = "CENTO E OITENTA E NOVE", [190] = "CENTO E NOVENTA",
+    [191] = "CENTO E NOVENTA E UM", [192] = "CENTO E NOVENTA E DOIS", [193] = "CENTO E NOVENTA E TRÊS", [194] = "CENTO E NOVENTA E QUATRO", [195] = "CENTO E NOVENTA E CINCO",
+    [196] = "CENTO E NOVENTA E SEIS", [197] = "CENTO E NOVENTA E SETE", [198] = "CENTO E NOVENTA E OITO", [199] = "CENTO E NOVENTA E NOVE", [200] = "DUZENTOS"
 }
 
 -- Variáveis
-local maxNumber = 20
-local delayTime = 1.8
+local startNum = 1
+local endNum = 20
+local chatDelay = 1.8
+local jumpDelay = 0.0
+local suffix = "!"
 local doJump = true
 local running = false
 
@@ -61,15 +63,15 @@ if TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then
     generalChannel = TextChatService:WaitForChild("TextChannels"):WaitForChild("RBXGeneral", 5)
 end
 
--- ====================== GUI ======================
+-- ====================== GUI (mais campos) ======================
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "AutoJJsBR_Bonita"
 screenGui.ResetOnSpawn = false
 screenGui.Parent = (gethui and gethui()) or game:GetService("CoreGui") or player:WaitForChild("PlayerGui")
 
 local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 360, 0, 450)
-mainFrame.Position = UDim2.new(0.5, -180, 0.5, -225)
+mainFrame.Size = UDim2.new(0, 360, 0, 580)  -- aumentei pra caber tudo
+mainFrame.Position = UDim2.new(0.5, -180, 0.5, -290)
 mainFrame.BackgroundColor3 = Color3.fromRGB(15, 35, 15)
 mainFrame.BorderSizePixel = 0
 mainFrame.Active = true
@@ -78,10 +80,7 @@ mainFrame.Parent = screenGui
 mainFrame.BackgroundTransparency = 0.1
 
 local uiGradient = Instance.new("UIGradient")
-uiGradient.Color = ColorSequence.new{
-    ColorSequenceKeypoint.new(0, Color3.fromRGB(20, 60, 20)),
-    ColorSequenceKeypoint.new(1, Color3.fromRGB(5, 25, 5))
-}
+uiGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(20, 60, 20)), ColorSequenceKeypoint.new(1, Color3.fromRGB(5, 25, 5))}
 uiGradient.Rotation = 90
 uiGradient.Parent = mainFrame
 
@@ -109,7 +108,7 @@ local subtitle = Instance.new("TextLabel")
 subtitle.Size = UDim2.new(1, 0, 0, 20)
 subtitle.Position = UDim2.new(0, 0, 0, 45)
 subtitle.BackgroundTransparency = 1
-subtitle.Text = "Contagem Militar Automática (até 200)"
+subtitle.Text = "Contagem Militar Personalizada (até 200)"
 subtitle.TextColor3 = Color3.fromRGB(150, 255, 150)
 subtitle.TextScaled = true
 subtitle.Font = Enum.Font.Gotham
@@ -125,15 +124,11 @@ closeBtn.TextColor3 = Color3.new(1,1,1)
 closeBtn.Font = Enum.Font.GothamBold
 closeBtn.TextSize = 24
 closeBtn.Parent = mainFrame
+Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 10)
 
-local closeCorner = Instance.new("UICorner")
-closeCorner.CornerRadius = UDim.new(0, 10)
-closeCorner.Parent = closeBtn
+closeBtn.MouseButton1Click:Connect(function() screenGui:Destroy() end)
 
-closeBtn.MouseButton1Click:Connect(function()
-    screenGui:Destroy()
-end)
-
+-- Labels e Boxes
 local function createLabel(text, posY)
     local lbl = Instance.new("TextLabel")
     lbl.Size = UDim2.new(0.9, 0, 0, 25)
@@ -157,30 +152,36 @@ local function createBox(default, posY)
     box.TextScaled = true
     box.Font = Enum.Font.Gotham
     box.ClearTextOnFocus = false
-    local corner = Instance.new("UICorner", box)
-    corner.CornerRadius = UDim.new(0, 8)
+    Instance.new("UICorner", box).CornerRadius = UDim.new(0, 8)
     box.Parent = mainFrame
     return box
 end
 
-createLabel("Até qual número? (máx 200)", 80)
-local boxMax = createBox("20", 105)
+createLabel("Iniciar do número", 80)
+local boxStart = createBox("1", 105)
 
-createLabel("Velocidade (segundos)", 150)
-local boxSpeed = createBox("1.8", 175)
+createLabel("Até o número (máx 200)", 150)
+local boxEnd = createBox("20", 175)
+
+createLabel("Delay entre contagens (s)", 220)
+local boxChatDelay = createBox("1.8", 245)
+
+createLabel("Delay do pulo após chat (s)", 290)
+local boxJumpDelay = createBox("0.0", 315)
+
+createLabel("Sufixo final (ex: !  :  .  !!)", 360)
+local boxSuffix = createBox("!", 385)
 
 local toggleBtn = Instance.new("TextButton")
 toggleBtn.Size = UDim2.new(0.9, 0, 0, 50)
-toggleBtn.Position = UDim2.new(0.05, 0, 0, 225)
+toggleBtn.Position = UDim2.new(0.05, 0, 0, 435)
 toggleBtn.BackgroundColor3 = Color3.fromRGB(0, 180, 0)
 toggleBtn.Text = "PULAR: LIGADO ✓"
 toggleBtn.TextColor3 = Color3.new(1,1,1)
 toggleBtn.Font = Enum.Font.GothamBold
 toggleBtn.TextSize = 20
 toggleBtn.Parent = mainFrame
-
-local toggleCorner = Instance.new("UICorner", toggleBtn)
-toggleCorner.CornerRadius = UDim.new(0, 10)
+Instance.new("UICorner", toggleBtn).CornerRadius = UDim.new(0, 10)
 
 toggleBtn.MouseButton1Click:Connect(function()
     doJump = not doJump
@@ -190,7 +191,7 @@ end)
 
 local status = Instance.new("TextLabel")
 status.Size = UDim2.new(0.9, 0, 0, 40)
-status.Position = UDim2.new(0.05, 0, 0, 285)
+status.Position = UDim2.new(0.05, 0, 0, 495)
 status.BackgroundTransparency = 1
 status.Text = "Pronto para iniciar"
 status.TextColor3 = Color3.fromRGB(255, 220, 100)
@@ -200,25 +201,25 @@ status.Parent = mainFrame
 
 local startBtn = Instance.new("TextButton")
 startBtn.Size = UDim2.new(0.43, 0, 0, 55)
-startBtn.Position = UDim2.new(0.05, 0, 0, 335)
+startBtn.Position = UDim2.new(0.05, 0, 0, 535)
 startBtn.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
 startBtn.Text = "INICIAR ▶"
 startBtn.TextColor3 = Color3.new(1,1,1)
 startBtn.Font = Enum.Font.GothamBlack
 startBtn.TextSize = 22
 startBtn.Parent = mainFrame
-local startCorner = Instance.new("UICorner", startBtn); startCorner.CornerRadius = UDim.new(0, 12)
+Instance.new("UICorner", startBtn).CornerRadius = UDim.new(0, 12)
 
 local stopBtn = Instance.new("TextButton")
 stopBtn.Size = UDim2.new(0.43, 0, 0, 55)
-stopBtn.Position = UDim2.new(0.52, 0, 0, 335)
+stopBtn.Position = UDim2.new(0.52, 0, 0, 535)
 stopBtn.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
 stopBtn.Text = "PARAR ■"
 stopBtn.TextColor3 = Color3.new(1,1,1)
 stopBtn.Font = Enum.Font.GothamBlack
 stopBtn.TextSize = 22
 stopBtn.Parent = mainFrame
-local stopCorner = Instance.new("UICorner", stopBtn); stopCorner.CornerRadius = UDim.new(0, 12)
+Instance.new("UICorner", stopBtn).CornerRadius = UDim.new(0, 12)
 
 -- ====================== FUNÇÕES ======================
 local function sendChat(msg)
@@ -234,51 +235,58 @@ end
 local function startCounting()
     if running then return end
     
-    maxNumber = tonumber(boxMax.Text) or 20
-    delayTime = tonumber(boxSpeed.Text) or 1.8
+    startNum = tonumber(boxStart.Text) or 1
+    endNum = tonumber(boxEnd.Text) or 20
+    chatDelay = tonumber(boxChatDelay.Text) or 1.8
+    jumpDelay = tonumber(boxJumpDelay.Text) or 0.0
+    suffix = boxSuffix.Text or "!"
     
-    if maxNumber < 1 then maxNumber = 1 end
-    if maxNumber > 200 then 
-        maxNumber = 200 
-        status.Text = "Limite ajustado para 200!"
+    if startNum < 1 then startNum = 1 end
+    if endNum > 200 then endNum = 200 end
+    if startNum > endNum then
+        status.Text = "Erro: Início maior que o fim!"
+        status.TextColor3 = Color3.fromRGB(255, 100, 100)
+        return
     end
     
-    if maxNumber >= 100 then
-        status.Text = "CUIDADO! Contagem alta ("..maxNumber..") → Use delay 3.0+ pra evitar kick por flood"
+    local total = endNum - startNum + 1
+    if total >= 100 then
+        status.Text = "CUIDADO! " .. total .. " contagens → delay 3.0+ recomendado"
         status.TextColor3 = Color3.fromRGB(255, 150, 50)
-        task.wait(4)  -- Mostra aviso por 4s
+        task.wait(3.5)
     end
     
     running = true
-    status.Text = "Contando... 0/" .. maxNumber
+    status.Text = "Contando... " .. startNum .. "/" .. endNum
     status.TextColor3 = Color3.fromRGB(100, 255, 100)
     
-    for i = 1, maxNumber do
+    for i = startNum, endNum do
         if not running then break end
         
-        status.Text = "Contando... " .. i .. "/" .. maxNumber
-        sendChat(words[i] or (i .. "!"))
+        status.Text = "Contando... " .. i .. "/" .. endNum
+        
+        local textToSend = (baseWords[i] or tostring(i)) .. suffix
+        sendChat(textToSend)
         
         if doJump then
-            local char = player.Character
-            if char then
-                local humanoid = char:FindFirstChild("Humanoid")
-                if humanoid then
-                    if humanoid:GetState() ~= Enum.HumanoidStateType.Jumping and humanoid.FloorMaterial ~= Enum.Material.Air then
+            task.spawn(function()
+                task.wait(jumpDelay)
+                local char = player.Character
+                if char then
+                    local humanoid = char:FindFirstChildOfClass("Humanoid")
+                    if humanoid and humanoid:GetState() ~= Enum.HumanoidStateType.Jumping and humanoid.FloorMaterial ~= Enum.Material.Air then
                         humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
                         print("Pulo no " .. i)
-                    else
-                        print("Pulo skip (no ar) " .. i)
                     end
                 end
-            end
+            end)
         end
         
-        task.wait(delayTime)
+        task.wait(chatDelay)
     end
     
     running = false
-    status.Text = "Finalizado! (" .. maxNumber .. ")"
+    status.Text = "Finalizado! (" .. startNum .. " → " .. endNum .. ")"
     status.TextColor3 = Color3.fromRGB(255, 220, 100)
 end
 
@@ -289,4 +297,4 @@ stopBtn.MouseButton1Click:Connect(function()
     status.TextColor3 = Color3.fromRGB(255, 100, 100)
 end)
 
-print("Auto JJs BR - Atualizado até 200! Delay alto recomendado pra contagens grandes.")
+print("Auto JJs BR - Agora com range personalizado (de X até Y)! Teste ex: 20 até 100")
