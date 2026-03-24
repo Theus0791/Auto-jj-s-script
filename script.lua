@@ -207,9 +207,9 @@ local baseWords = {
 }
 -- Variáveis
 local startNum = 1
-local endNum = 20
-local chatDelay = 1.8
-local jumpDelay = 0.0
+local endNum = 50
+local chatDelay = 3.0
+local jumpDelay = 0.5
 local suffix = "!"
 local doJump = true
 local running = false
