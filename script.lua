@@ -2,9 +2,10 @@
 local Players = game:GetService("Players")
 local TextChatService = game:GetService("TextChatService")
 local player = Players.LocalPlayer
+
 -- Lista base (sem sufixo) até 1000
 local baseWords = {
-    [1] = "UM", [2] = "DOIS", [3] = "TRÊS", [4] = "QUATRO", [5] = "CINCO",
+[1] = "UM", [2] = "DOIS", [3] = "TRÊS", [4] = "QUATRO", [5] = "CINCO",
     [6] = "SEIS", [7] = "SETE", [8] = "OITO", [9] = "NOVE", [10] = "DEZ",
     [11] = "ONZE", [12] = "DOZE", [13] = "TREZE", [14] = "QUATORZE", [15] = "QUINZE",
     [16] = "DEZESSEIS", [17] = "DEZESSETE", [18] = "DEZOITO", [19] = "DEZENOVE", [20] = "VINTE",
@@ -205,24 +206,28 @@ local baseWords = {
     [991] = "NOVECENTOS E NOVENTA E UM", [992] = "NOVECENTOS E NOVENTA E DOIS", [993] = "NOVECENTOS E NOVENTA E TRÊS", [994] = "NOVECENTOS E NOVENTA E QUATRO", [995] = "NOVECENTOS E NOVENTA E CINCO",
     [996] = "NOVECENTOS E NOVENTA E SEIS", [997] = "NOVECENTOS E NOVENTA E SETE", [998] = "NOVECENTOS E NOVENTA E OITO", [999] = "NOVECENTOS E NOVENTA E NOVE", [1000] = "MIL"
 }
--- Variáveis
+
+-- Variáveis (agora com configuração padrão que você pediu)
 local startNum = 1
-local endNum = 50
-local chatDelay = 3.0
-local jumpDelay = 0.5
+local endNum = 20
+local chatDelay = 3.0      -- ← alterado para 3.0
+local jumpDelay = 0.5      -- ← alterado para 0.5
 local suffix = "!"
 local doJump = true
 local running = false
+
 -- Canal de chat
 local generalChannel
 if TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then
     generalChannel = TextChatService:WaitForChild("TextChannels"):WaitForChild("RBXGeneral", 5)
 end
--- ====================== GUI (mais campos) ======================
+
+-- ====================== GUI ======================
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "AutoJJsBR_Bonita"
 screenGui.ResetOnSpawn = false
 screenGui.Parent = (gethui and gethui()) or game:GetService("CoreGui") or player:WaitForChild("PlayerGui")
+
 local mainFrame = Instance.new("Frame")
 mainFrame.Size = UDim2.new(0, 360, 0, 580)
 mainFrame.Position = UDim2.new(0.5, -180, 0.5, -290)
@@ -232,18 +237,22 @@ mainFrame.Active = true
 mainFrame.Draggable = true
 mainFrame.Parent = screenGui
 mainFrame.BackgroundTransparency = 0.1
+
 local uiGradient = Instance.new("UIGradient")
 uiGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(20, 60, 20)), ColorSequenceKeypoint.new(1, Color3.fromRGB(5, 25, 5))}
 uiGradient.Rotation = 90
 uiGradient.Parent = mainFrame
+
 local uiCorner = Instance.new("UICorner")
 uiCorner.CornerRadius = UDim.new(0, 16)
 uiCorner.Parent = mainFrame
+
 local uiStroke = Instance.new("UIStroke")
 uiStroke.Color = Color3.fromRGB(0, 100, 0)
 uiStroke.Thickness = 2
 uiStroke.Transparency = 0.4
 uiStroke.Parent = mainFrame
+
 local title = Instance.new("TextLabel")
 title.Size = UDim2.new(1, 0, 0, 50)
 title.BackgroundTransparency = 1
@@ -253,6 +262,7 @@ title.TextScaled = true
 title.Font = Enum.Font.GothamBlack
 title.TextSize = 28
 title.Parent = mainFrame
+
 local subtitle = Instance.new("TextLabel")
 subtitle.Size = UDim2.new(1, 0, 0, 20)
 subtitle.Position = UDim2.new(0, 0, 0, 45)
@@ -263,6 +273,7 @@ subtitle.TextScaled = true
 subtitle.Font = Enum.Font.Gotham
 subtitle.TextSize = 14
 subtitle.Parent = mainFrame
+
 local closeBtn = Instance.new("TextButton")
 closeBtn.Size = UDim2.new(0, 40, 0, 40)
 closeBtn.Position = UDim2.new(1, -45, 0, 5)
@@ -274,6 +285,7 @@ closeBtn.TextSize = 24
 closeBtn.Parent = mainFrame
 Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 10)
 closeBtn.MouseButton1Click:Connect(function() screenGui:Destroy() end)
+
 -- Labels e Boxes
 local function createLabel(text, posY)
     local lbl = Instance.new("TextLabel")
@@ -287,6 +299,7 @@ local function createLabel(text, posY)
     lbl.Parent = mainFrame
     return lbl
 end
+
 local function createBox(default, posY)
     local box = Instance.new("TextBox")
     box.Size = UDim2.new(0.9, 0, 0, 40)
@@ -301,16 +314,18 @@ local function createBox(default, posY)
     box.Parent = mainFrame
     return box
 end
+
 createLabel("Iniciar do número", 80)
 local boxStart = createBox("1", 105)
 createLabel("Até o número (máx 1000)", 150)
 local boxEnd = createBox("20", 175)
 createLabel("Delay entre contagens (s)", 220)
-local boxChatDelay = createBox("1.8", 245)
+local boxChatDelay = createBox("3.0", 245)   -- agora padrão 3.0
 createLabel("Delay do pulo após chat (s)", 290)
-local boxJumpDelay = createBox("0.0", 315)
+local boxJumpDelay = createBox("0.5", 315)   -- agora padrão 0.5
 createLabel("Sufixo final (ex: ! : . !!)", 360)
 local boxSuffix = createBox("!", 385)
+
 local toggleBtn = Instance.new("TextButton")
 toggleBtn.Size = UDim2.new(0.9, 0, 0, 50)
 toggleBtn.Position = UDim2.new(0.05, 0, 0, 435)
@@ -326,6 +341,7 @@ toggleBtn.MouseButton1Click:Connect(function()
     toggleBtn.Text = doJump and "PULAR: LIGADO ✓" or "PULAR: DESLIGADO ✗"
     toggleBtn.BackgroundColor3 = doJump and Color3.fromRGB(0, 180, 0) or Color3.fromRGB(180, 0, 0)
 end)
+
 local status = Instance.new("TextLabel")
 status.Size = UDim2.new(0.9, 0, 0, 40)
 status.Position = UDim2.new(0.05, 0, 0, 495)
@@ -335,6 +351,7 @@ status.TextColor3 = Color3.fromRGB(255, 220, 100)
 status.TextScaled = true
 status.Font = Enum.Font.GothamSemibold
 status.Parent = mainFrame
+
 local startBtn = Instance.new("TextButton")
 startBtn.Size = UDim2.new(0.43, 0, 0, 55)
 startBtn.Position = UDim2.new(0.05, 0, 0, 535)
@@ -345,6 +362,7 @@ startBtn.Font = Enum.Font.GothamBlack
 startBtn.TextSize = 22
 startBtn.Parent = mainFrame
 Instance.new("UICorner", startBtn).CornerRadius = UDim.new(0, 12)
+
 local stopBtn = Instance.new("TextButton")
 stopBtn.Size = UDim2.new(0.43, 0, 0, 55)
 stopBtn.Position = UDim2.new(0.52, 0, 0, 535)
@@ -355,6 +373,7 @@ stopBtn.Font = Enum.Font.GothamBlack
 stopBtn.TextSize = 22
 stopBtn.Parent = mainFrame
 Instance.new("UICorner", stopBtn).CornerRadius = UDim.new(0, 12)
+
 -- ====================== FUNÇÕES ======================
 local function sendChat(msg)
     if generalChannel then
@@ -365,13 +384,14 @@ local function sendChat(msg)
         status.TextColor3 = Color3.fromRGB(255, 100, 100)
     end
 end
+
 local function startCounting()
     if running then return end
    
     startNum = tonumber(boxStart.Text) or 1
     endNum = tonumber(boxEnd.Text) or 20
-    chatDelay = tonumber(boxChatDelay.Text) or 1.8
-    jumpDelay = tonumber(boxJumpDelay.Text) or 0.0
+    chatDelay = tonumber(boxChatDelay.Text) or 3.0
+    jumpDelay = tonumber(boxJumpDelay.Text) or 0.5
     suffix = boxSuffix.Text or "!"
    
     if startNum < 1 then startNum = 1 end
@@ -380,13 +400,6 @@ local function startCounting()
         status.Text = "Erro: Início maior que o fim!"
         status.TextColor3 = Color3.fromRGB(255, 100, 100)
         return
-    end
-   
-    local total = endNum - startNum + 1
-    if total >= 100 then
-        status.Text = "CUIDADO! " .. total .. " contagens → delay 3.0+ recomendado"
-        status.TextColor3 = Color3.fromRGB(255, 150, 50)
-        task.wait(3.5)
     end
    
     running = true
@@ -422,10 +435,12 @@ local function startCounting()
     status.Text = "Finalizado! (" .. startNum .. " → " .. endNum .. ")"
     status.TextColor3 = Color3.fromRGB(255, 220, 100)
 end
+
 startBtn.MouseButton1Click:Connect(startCounting)
 stopBtn.MouseButton1Click:Connect(function()
     running = false
     status.Text = "Parado manualmente"
     status.TextColor3 = Color3.fromRGB(255, 100, 100)
 end)
-print("Auto JJs BR - Agora com range personalizado (de X até 1000)! Teste ex: 1 até 1000")
+
+print("Auto JJs BR atualizado → Delay padrão: Chat 3.0s | Pulo 0.5s (sem delay inicial de 3s)")
