@@ -1,11 +1,11 @@
--- ==================== AUTO JJs BR - GUI BONITA + RANGE PERSONALIZADO (de X até Y) ====================
+-- ==================== AUTO JJs BR - MODO HUMANO AVANÇADO ====================
 local Players = game:GetService("Players")
 local TextChatService = game:GetService("TextChatService")
 local player = Players.LocalPlayer
 
--- Lista base (sem sufixo) até 1000
+-- Lista base completa até 1000
 local baseWords = {
-[1] = "UM", [2] = "DOIS", [3] = "TRÊS", [4] = "QUATRO", [5] = "CINCO",
+    [1] = "UM", [2] = "DOIS", [3] = "TRÊS", [4] = "QUATRO", [5] = "CINCO",
     [6] = "SEIS", [7] = "SETE", [8] = "OITO", [9] = "NOVE", [10] = "DEZ",
     [11] = "ONZE", [12] = "DOZE", [13] = "TREZE", [14] = "QUATORZE", [15] = "QUINZE",
     [16] = "DEZESSEIS", [17] = "DEZESSETE", [18] = "DEZOITO", [19] = "DEZENOVE", [20] = "VINTE",
@@ -207,11 +207,14 @@ local baseWords = {
     [996] = "NOVECENTOS E NOVENTA E SEIS", [997] = "NOVECENTOS E NOVENTA E SETE", [998] = "NOVECENTOS E NOVENTA E OITO", [999] = "NOVECENTOS E NOVENTA E NOVE", [1000] = "MIL"
 }
 
--- Variáveis (agora com configuração padrão que você pediu)
+-- Variáveis - Modo Humano
 local startNum = 1
 local endNum = 20
-local chatDelay = 3.0      -- ← alterado para 3.0
-local jumpDelay = 0.5      -- ← alterado para 0.5
+local thinkDelayMin = 0.8
+local thinkDelayMax = 2.2
+local chatDelayMin = 3.8
+local chatDelayMax = 5.5
+local jumpDelay = 0.5
 local suffix = "!"
 local doJump = true
 local running = false
@@ -224,13 +227,13 @@ end
 
 -- ====================== GUI ======================
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "AutoJJsBR_Bonita"
+screenGui.Name = "AutoJJsBR_Humano"
 screenGui.ResetOnSpawn = false
 screenGui.Parent = (gethui and gethui()) or game:GetService("CoreGui") or player:WaitForChild("PlayerGui")
 
 local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 360, 0, 580)
-mainFrame.Position = UDim2.new(0.5, -180, 0.5, -290)
+mainFrame.Size = UDim2.new(0, 380, 0, 680)
+mainFrame.Position = UDim2.new(0.5, -190, 0.5, -340)
 mainFrame.BackgroundColor3 = Color3.fromRGB(15, 35, 15)
 mainFrame.BorderSizePixel = 0
 mainFrame.Active = true
@@ -267,7 +270,7 @@ local subtitle = Instance.new("TextLabel")
 subtitle.Size = UDim2.new(1, 0, 0, 20)
 subtitle.Position = UDim2.new(0, 0, 0, 45)
 subtitle.BackgroundTransparency = 1
-subtitle.Text = "Contagem Militar Personalizada (até 1000)"
+subtitle.Text = "Modo Humano Avançado (parece pessoa real)"
 subtitle.TextColor3 = Color3.fromRGB(150, 255, 150)
 subtitle.TextScaled = true
 subtitle.Font = Enum.Font.Gotham
@@ -286,7 +289,6 @@ closeBtn.Parent = mainFrame
 Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 10)
 closeBtn.MouseButton1Click:Connect(function() screenGui:Destroy() end)
 
--- Labels e Boxes
 local function createLabel(text, posY)
     local lbl = Instance.new("TextLabel")
     lbl.Size = UDim2.new(0.9, 0, 0, 25)
@@ -317,18 +319,31 @@ end
 
 createLabel("Iniciar do número", 80)
 local boxStart = createBox("1", 105)
+
 createLabel("Até o número (máx 1000)", 150)
 local boxEnd = createBox("20", 175)
-createLabel("Delay entre contagens (s)", 220)
-local boxChatDelay = createBox("3.0", 245)   -- agora padrão 3.0
-createLabel("Delay do pulo após chat (s)", 290)
-local boxJumpDelay = createBox("0.5", 315)   -- agora padrão 0.5
-createLabel("Sufixo final (ex: ! : . !!)", 360)
-local boxSuffix = createBox("!", 385)
+
+createLabel("Tempo pensando/abrir chat (mín)", 220)
+local boxThinkMin = createBox("0.8", 245)
+
+createLabel("Tempo pensando/abrir chat (máx)", 290)
+local boxThinkMax = createBox("2.2", 315)
+
+createLabel("Delay entre mensagens (mín)", 360)
+local boxChatMin = createBox("3.8", 385)
+
+createLabel("Delay entre mensagens (máx)", 430)
+local boxChatMax = createBox("5.5", 455)
+
+createLabel("Delay do pulo após chat (s)", 500)
+local boxJumpDelay = createBox("0.5", 525)
+
+createLabel("Sufixo final (ex: !)", 570)
+local boxSuffix = createBox("!", 595)
 
 local toggleBtn = Instance.new("TextButton")
 toggleBtn.Size = UDim2.new(0.9, 0, 0, 50)
-toggleBtn.Position = UDim2.new(0.05, 0, 0, 435)
+toggleBtn.Position = UDim2.new(0.05, 0, 0, 640)
 toggleBtn.BackgroundColor3 = Color3.fromRGB(0, 180, 0)
 toggleBtn.Text = "PULAR: LIGADO ✓"
 toggleBtn.TextColor3 = Color3.new(1,1,1)
@@ -336,6 +351,7 @@ toggleBtn.Font = Enum.Font.GothamBold
 toggleBtn.TextSize = 20
 toggleBtn.Parent = mainFrame
 Instance.new("UICorner", toggleBtn).CornerRadius = UDim.new(0, 10)
+
 toggleBtn.MouseButton1Click:Connect(function()
     doJump = not doJump
     toggleBtn.Text = doJump and "PULAR: LIGADO ✓" or "PULAR: DESLIGADO ✗"
@@ -344,7 +360,7 @@ end)
 
 local status = Instance.new("TextLabel")
 status.Size = UDim2.new(0.9, 0, 0, 40)
-status.Position = UDim2.new(0.05, 0, 0, 495)
+status.Position = UDim2.new(0.05, 0, 0, 700)
 status.BackgroundTransparency = 1
 status.Text = "Pronto para iniciar"
 status.TextColor3 = Color3.fromRGB(255, 220, 100)
@@ -354,7 +370,7 @@ status.Parent = mainFrame
 
 local startBtn = Instance.new("TextButton")
 startBtn.Size = UDim2.new(0.43, 0, 0, 55)
-startBtn.Position = UDim2.new(0.05, 0, 0, 535)
+startBtn.Position = UDim2.new(0.05, 0, 0, 750)
 startBtn.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
 startBtn.Text = "INICIAR ▶"
 startBtn.TextColor3 = Color3.new(1,1,1)
@@ -365,7 +381,7 @@ Instance.new("UICorner", startBtn).CornerRadius = UDim.new(0, 12)
 
 local stopBtn = Instance.new("TextButton")
 stopBtn.Size = UDim2.new(0.43, 0, 0, 55)
-stopBtn.Position = UDim2.new(0.52, 0, 0, 535)
+stopBtn.Position = UDim2.new(0.52, 0, 0, 750)
 stopBtn.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
 stopBtn.Text = "PARAR ■"
 stopBtn.TextColor3 = Color3.new(1,1,1)
@@ -390,7 +406,10 @@ local function startCounting()
    
     startNum = tonumber(boxStart.Text) or 1
     endNum = tonumber(boxEnd.Text) or 20
-    chatDelay = tonumber(boxChatDelay.Text) or 3.0
+    thinkDelayMin = tonumber(boxThinkMin.Text) or 0.8
+    thinkDelayMax = tonumber(boxThinkMax.Text) or 2.2
+    chatDelayMin = tonumber(boxChatMin.Text) or 3.8
+    chatDelayMax = tonumber(boxChatMax.Text) or 5.5
     jumpDelay = tonumber(boxJumpDelay.Text) or 0.5
     suffix = boxSuffix.Text or "!"
    
@@ -403,17 +422,24 @@ local function startCounting()
     end
    
     running = true
-    status.Text = "Contando... " .. startNum .. "/" .. endNum
+    status.Text = "Contando de forma humana... " .. startNum .. "/" .. endNum
     status.TextColor3 = Color3.fromRGB(100, 255, 100)
    
     for i = startNum, endNum do
         if not running then break end
        
-        status.Text = "Contando... " .. i .. "/" .. endNum
-       
+        status.Text = "Contando... " .. i .. "/" .. endNum .. " (humano)"
+
         local textToSend = (baseWords[i] or tostring(i)) .. suffix
+
+        -- Simula pessoa pensando / abrindo o chat
+        local thinkTime = math.random() * (thinkDelayMax - thinkDelayMin) + thinkDelayMin
+        task.wait(thinkTime)
+
+        -- Envia a mensagem
         sendChat(textToSend)
-       
+
+        -- Pulo (se ligado)
         if doJump then
             task.spawn(function()
                 task.wait(jumpDelay)
@@ -422,13 +448,14 @@ local function startCounting()
                     local humanoid = char:FindFirstChildOfClass("Humanoid")
                     if humanoid and humanoid:GetState() ~= Enum.HumanoidStateType.Jumping and humanoid.FloorMaterial ~= Enum.Material.Air then
                         humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-                        print("Pulo no " .. i)
                     end
                 end
             end)
         end
-       
-        task.wait(chatDelay)
+
+        -- Delay entre as mensagens (parece humano)
+        local randomDelay = math.random() * (chatDelayMax - chatDelayMin) + chatDelayMin
+        task.wait(randomDelay)
     end
    
     running = false
@@ -443,4 +470,4 @@ stopBtn.MouseButton1Click:Connect(function()
     status.TextColor3 = Color3.fromRGB(255, 100, 100)
 end)
 
-print("Auto JJs BR atualizado → Delay padrão: Chat 3.0s | Pulo 0.5s (sem delay inicial de 3s)")
+print("✅ Auto JJs BR - Modo Humano Avançado carregado com sucesso!")
